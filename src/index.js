@@ -1,52 +1,26 @@
 import { createRoot } from 'react-dom/client';
 
+import AppHeader from './components/AppHeader';
+import SearchPannel from './components/SearchPannel';
+import TodoList from './components/TodoList';
+
 const container = document.getElementById('app');
 const root = createRoot(container);
 
-const TodoList = () => {
-    const items = ['Learn React', 'Make awasome app'];
-    return (
-        <ul>
-            <li>{items[0]}</li>
-            <li>{items[1]}</li>
-        </ul>
-    );
-};
-
-const AppHeader = () => {
-    return (
-        <h1> My ToDo List</h1>
-    );
-};
-
-const SearchPannel = () => {
-    const tipeSearch = 'Tipe here to search';
-
-    const searchStyle = {
-        fontSize: '25px'
-    }
-
-    return (
-        <input
-            style={searchStyle}
-            placeholder={tipeSearch}
-            disabled
-        />
-    );
-};
-
 const App = () => {
-    const valee = '<script>alert("This is going very poorly")</script>';
+    const todoData = [
+        { label: 'Work out', isImportant: true, id: 1 },
+        { label: 'Running', isImportant: true, id: 2 },
+        { label: 'Launch', isImportant: false, id: 3 }
+    ];
 
     return (
         <>
-            <div>{valee}</div>
             <AppHeader />
             <SearchPannel />
-            <TodoList />
+            <TodoList todos={todoData} />
         </>
     );
-
 };
 
 root.render(<App />);
