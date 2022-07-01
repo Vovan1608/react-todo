@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import AppHeader from '../appHeader';
 import SearchPanel from '../searchPanel';
 import TodoList from '../todoList';
@@ -5,12 +7,19 @@ import ItemStatusFilter from '../itemStatusFilter';
 
 import './App.css';
 
+
 const App = () => {
     const todoData = [
         { label: 'Work out', isImportant: true, id: 1 },
         { label: 'Running', isImportant: true, id: 2 },
         { label: 'Launch', isImportant: false, id: 3 }
     ];
+
+    const [data, setData] = useState(todoData);
+
+    const deleteItem = (id) => {
+        setData(data.filter((el) => el.id !== id));
+    }
 
     return (
         <div className="todo-app">
@@ -21,8 +30,8 @@ const App = () => {
             </div>
 
             <TodoList
-                todos={todoData}
-                onDeleted={(id) => console.log('del: ', id)}
+                todos={data}
+                onDeleted={deleteItem}
             />
         </div>
     );
