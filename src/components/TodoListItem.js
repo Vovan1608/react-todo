@@ -1,12 +1,31 @@
 import React from 'react';
 
+import './TodoListItem.css';
+
 const TodoListItem = ({ label, isImportant = false }) => {
     const style = {
         color: isImportant ? 'tomato' : 'black'
     }
 
+
     return (
-        <span style={style}>{label}</span>
+        <span className="todo-list-item">
+            <span
+                className="todo-list-item-label"
+                style={style}>
+                {label}
+            </span>
+
+            <button type="button"
+                className="btn btn-outline-success btn-sm float-right">
+                <i className="fa fa-exclamation" />
+            </button>
+
+            <button type="button"
+                className="btn btn-outline-danger btn-sm float-right">
+                <i className="fa-light fa-trash-can" />
+            </button>
+        </span>
     );
 };
 

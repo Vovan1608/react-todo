@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import AppHeader from './components/AppHeader';
 import SearchPannel from './components/SearchPannel';
 import TodoList from './components/TodoList';
+import ItemStatusFilter from './components/ItemStatusFilter';
 
 const container = document.getElementById('app');
 const root = createRoot(container);
@@ -15,11 +16,15 @@ const App = () => {
     ];
 
     return (
-        <>
-            <AppHeader />
-            <SearchPannel />
+        <div className="todo-app">
+            <AppHeader toDo={1} done={3} />
+            <div className="top-panel d-flex">
+                <SearchPannel />
+                <ItemStatusFilter />
+            </div>
+
             <TodoList todos={todoData} />
-        </>
+        </div>
     );
 };
 
