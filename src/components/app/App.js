@@ -57,16 +57,32 @@ const App = () => {
 
     const todoCount = data.length - doneCount;
 
+    const [term, setTerm] = useState('');
+
+    const search = (items, term) => {
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter((item) => item.label.toLowerCase().indexOf(term.toLowerCase()) > -1);
+    };
+
+    const visibleItems = search(data, term);
+
+    const onSearchChange = (term) => {
+        setTerm(term);
+    };
+
     return (
         <div className="todo-app">
             <AppHeader todo={todoCount} done={doneCount} />
             <div className="top-panel d-flex">
-                <SearchPanel />
+                <SearchPanel onSearchChange={onSearchChange} />
                 <ItemStatusFilter />
             </div>
 
             <TodoList
-                todos={data}
+                todos={visibleItems}
                 onDeleted={deleteItem}
                 onToggleImportant={onToggleImportant}
                 onToggleDone={onToggleDone}
