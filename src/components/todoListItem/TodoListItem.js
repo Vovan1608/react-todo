@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 
 import './TodoListItem.css';
 
-const TodoListItem = ({ label, onDeleted }) => {
-    const [isDone, setIsDone] = useState(false);
-    const [isImportant, setIsImportant] = useState(false);
-
+const TodoListItem = ({ label, onDeleted, isDone, isImportant, onToggleImportant, onToggleDone }) => {
     let classNames = 'todo-list-item d-flex';
 
     if (isDone) {
@@ -16,19 +13,11 @@ const TodoListItem = ({ label, onDeleted }) => {
         classNames += ' important';
     }
 
-    const onLabelClick = () => {
-        setIsDone(!isDone);
-    }
-
-    const onMarkImportant = () => {
-        setIsImportant(!isImportant);
-    }
-
     return (
         <span className={classNames}>
             <span
                 className="todo-list-item-label"
-                onClick={onLabelClick}
+                onClick={onToggleDone}
             >
                 {label}
             </span>
@@ -36,7 +25,7 @@ const TodoListItem = ({ label, onDeleted }) => {
             <span className='d-flex justify-content-end'>
                 <button type="button"
                     className="btn btn-outline-success btn-sm"
-                    onClick={onMarkImportant}
+                    onClick={onToggleImportant}
                 >
                     <i className="fa fa-exclamation" />
                 </button>
