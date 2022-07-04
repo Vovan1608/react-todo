@@ -67,10 +67,29 @@ const App = () => {
         return items.filter((item) => item.label.toLowerCase().indexOf(term.toLowerCase()) > -1);
     };
 
-    const visibleItems = search(data, term);
-
     const onSearchChange = (term) => {
         setTerm(term);
+    };
+
+    const [filterItems, setFilterItems] = useState('all');
+
+    const filter = (items, filter) => {
+        switch (filter) {
+            case 'done':
+                return items.filter((item) => item.isDone);
+
+            case 'active':
+                return items.filter((item) => !item.isDone);
+
+            default:
+                return items;
+        }
+    };
+
+    const visibleItems = filter(search(data, term), filterItems);
+
+    const onFilterChange = (filter) => {
+        setFilterItems(filter);
     };
 
     return (
@@ -78,7 +97,10 @@ const App = () => {
             <AppHeader todo={todoCount} done={doneCount} />
             <div className="top-panel d-flex">
                 <SearchPanel onSearchChange={onSearchChange} />
-                <ItemStatusFilter />
+                <ItemStatusFilter
+                    filter={filterItems}
+                    onFilterChange={onFilterChange}
+                />
             </div>
 
             <TodoList

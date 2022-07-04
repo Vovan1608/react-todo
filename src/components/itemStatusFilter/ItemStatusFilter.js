@@ -2,29 +2,32 @@ import React from 'react';
 
 import './ItemStatusFilter.css';
 
-const ItemStatusFilter = () => {
+const ItemStatusFilter = ({ filter, onFilterChange }) => {
+    const buttonsData = [
+        { name: 'all', label: 'All' },
+        { name: 'active', label: 'Active' },
+        { name: 'done', label: 'Done' }
+    ];
+
+    const buttons = buttonsData.map(({ name, label }) => {
+        const isActive = filter === name;
+        const clazz = isActive ? 'btn-info' : 'btn-outline-secondary';
+
+        return (
+            <button
+                key={name}
+                type="button"
+                className={`btn ${clazz}`}
+                onClick={() => onFilterChange(name)}
+            >
+                {label}
+            </button>
+        );
+    });
+
     return (
         <div className="btn-group">
-            <button
-                type="button"
-                className="btn btn-info"
-            >
-                All
-            </button>
-
-            <button
-                type="button"
-                className="btn btn-outline-secondary"
-            >
-                Active
-            </button>
-
-            <button
-                type="button"
-                className="btn btn-outline-secondary"
-            >
-                Done
-            </button>
+            {buttons}
         </div>
     );
 };
